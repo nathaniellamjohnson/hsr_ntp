@@ -1,0 +1,31 @@
+app hsrNtp {
+  wasp: {
+    version: "^0.16.2"
+  },
+  title: "hsr-ntp"
+}
+
+route RootRoute { path: "/", to: MainPage }
+page MainPage {
+  component: import Main from "@src/MainPage"
+}
+
+query getTasks {
+  // Specifies where the implementation for the query function is.
+  // The path `@src/queries` resolves to `src/queries.js`.
+  // No need to specify an extension.
+  fn: import { getTasks } from "@src/queries",
+  // Tell Wasp that this query reads from the `Task` entity. Wasp will
+  // automatically update the results of this query when tasks are modified.
+  entities: [Task]
+}
+
+action createTask {
+  fn: import { createTask } from "@src/Actions",
+  entities: [Task]
+}
+
+action updateTask {
+  fn: import { updateTask } from "@src/Actions",
+  entities: [Task]
+}
